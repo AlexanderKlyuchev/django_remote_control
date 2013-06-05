@@ -1,0 +1,61 @@
+{% extends "admin/base_site.html" %}
+{% load admin_static %}{% load url from future %}
+{% block title %}Управление серверами{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">Консоль управления серверами</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Админка</a>
+    </div>
+    {% endblock %}
+
+{%block content%}
+<div class="container">
+        <div id="body">
+        <form id="base" method="post"  action="">
+                {%if user.is_superuser%}
+		<a href="admin/myfab/server/add/">Добавить сервер</a>
+                {%endif%}
+                  <table border>
+                    {%if form.errors%}
+                     Errors:
+                       {{form.errors}}
+                    {%endif%} 
+                    <tr>
+                      <td>
+                         <p>Servers</p>
+                         {%for server in form.servers%}
+                         {{server}}({{server.os}})
+                         {%endfor%}
+                      </td>
+                      <td>
+                        Command:
+                        {{form.command}}
+			<input type="submit"> 
+                      </td>
+                    </tr>
+                  </table> 
+                        {% csrf_token %}
+        </form>
+        </div>
+</div>
+
+<table border>
+Results:
+{%for res in results%}
+ <tr>
+  <td>
+   <a href="">{{res.0}}</a>
+  </td>
+  <td>
+   <h>{{res.1}}</h>
+  </td>
+ </tr>
+  </br>
+{%endfor%}
+</table>
+{%endblock%}
+
