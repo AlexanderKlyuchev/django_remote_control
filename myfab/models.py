@@ -232,7 +232,7 @@ class Server(models.Model):
                 # Sleep if it wasn't a timeout, so we still get timeout-like
                 # behavior
                 if not_timeout:
-                    time.sleep(env.timeout)
+                    time.sleep(1)
                 continue
             # Override eror msg if we were retrying other errors
             if not_timeout:
